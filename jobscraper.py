@@ -9,6 +9,8 @@ data = requests.get(url).text
 soup = BeautifulSoup(data, 'html.parser')
 listings = soup.find_all('div',{'class':'main'})[0].find_all('a')
 now = datetime.now()
+now = now - timedelta(hours=7)
+
 for i in listings:
     if (str(now.strftime('%B')) + ' ' + str(now.day)) in i.text:
         company = i.find('div',{'class':'job-item-company'}).text
