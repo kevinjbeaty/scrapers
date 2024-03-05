@@ -10,10 +10,10 @@ soup = BeautifulSoup(data, 'html.parser')
 listings = soup.find_all('div',{'class':'main'})[0].find_all('a')
 now = datetime.now()
 now = now - timedelta(hours=7)
-print(str(now.strftime('%B')) + ' ' + str(now.day))
+print(str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.month)))
 
 for i in listings:
-    if (str(now.strftime('%B')) + ' ' + str(now.day)) in i.text:
+    if (str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.month))) in i.text:
         company = i.find('div',{'class':'job-item-company'}).text
         title = i.find('h3',{'class':'job-item-title'}).text
         location = i.find_all('i')[0].parent.text.replace(' ','').replace('\n','')
