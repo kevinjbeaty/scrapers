@@ -10,6 +10,7 @@ soup = BeautifulSoup(data, 'html.parser')
 listings = soup.find_all('div',{'class':'main'})[0].find_all('a')
 now = datetime.now()
 now = now - timedelta(hours=7)
+print(now)
 
 for i in listings:
     if (str(now.strftime('%B')) + ' ' + str(now.day)) in i.text:
