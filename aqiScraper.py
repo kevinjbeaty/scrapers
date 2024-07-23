@@ -58,6 +58,7 @@ def scrapethishour(timeGMT, hourMST):
     currentreadings = {ozone, pm25, pm10, no2}
     # Determine AQI based on highest value of each chemical.
     maxreading = max(currentreadings)
+    print(maxreading, hourMST)
     loaditin(maxreading, hourMST)
 
     
