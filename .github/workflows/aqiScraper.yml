@@ -1,0 +1,15 @@
+name: Scrape Denver AQI Data
+env:
+  AQIKEY: ${{ secrets.AQIKEY }}
+on:
+  workflow_dispatch:
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: python -m pip install gspread pandas beautifulsoup4
+      - name: Run the AQI scraper
+        run: python aqiScraper.py
