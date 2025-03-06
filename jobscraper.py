@@ -18,5 +18,5 @@ for i in listings:
         company = i.find('div',{'class':'job-item-company'}).text
         title = i.find('h3',{'class':'job-item-title'}).text
         location = i.find('ul',{'class':'job-item-details'}).find_all('li')[0].text.replace('\n','').replace('  ','')
-        postThis = {'text':'<https://www.journalismjobs.com/' + i['href'] + '|' + company + ' -- ' + title + ' -- ' + location + '>'} 
+        postThis = {'text':'<https://www.journalismjobs.com' + i['href'] + '|' + company + ' -- ' + title + ' -- ' + location + '>'} 
         response = requests.post(SLACKURL, data=json.dumps(postThis), headers={'Content-Type': 'application/json'})        
