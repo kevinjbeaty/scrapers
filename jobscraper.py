@@ -4,18 +4,19 @@ from datetime import datetime, timedelta
 import json
 import os
 SLACKURL = os.environ['SLACKURL']
-url = 'https://www.journalismjobs.com/job-listings?keywords=&location=0&jobType=&date=&industries=0%2C1%2C5%2C3%2C4%2C13%2C7%2C8%2C14%2C12%2C6%2C10%2C15%2C11&position=&diversity=&focuses=&salary=&company=&title=&virtual=&page=1&count=25'
+url = 'https://www.journalismjobs.com/job-listings?keywords=&location=&jobType=&date=&industries=1%2C5%2C3%2C4%2C13&position=&diversity=&focuses=&salary=&company=&title=&virtual=&page=1&count=50'
 data = requests.get(url).text
 soup = BeautifulSoup(data, 'html.parser')
-listings = soup.find_all('div',{'class':'main'})[0].find_all('a')
+soup = soup.find('div',{'class':'main-jobs'})
+listings = soup.find_all('a')
 now = datetime.now()
 now = now - timedelta(hours=7)
 print(str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.day)))
 
 for i in listings:
     if (str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.day))) in i.text:
-        company = i.find('div',{'class':'job-item-company'}).text
+        company = i..find('div',{'class':'job-item-company'}).text
         title = i.find('h3',{'class':'job-item-title'}).text
-        location = i.find_all('i')[0].parent.text.replace(' ','').replace('\n','')
+        location = i.find('ul',{'class':'job-item-details'}).find_all('li')[0].text.replace('\n','').replace('  ','')
         postThis = {'text':'<https://example.com|' + company + ' -- ' + title + ' -- ' + location + '>'} 
         response = requests.post(SLACKURL, data=json.dumps(postThis), headers={'Content-Type': 'application/json'})        
