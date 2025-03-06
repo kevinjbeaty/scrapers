@@ -15,7 +15,7 @@ print(str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.day)))
 
 for i in listings:
     if (str(now.strftime('%B')) + ' ' + str('{:02d}'.format(now.day))) in i.text:
-        company = i..find('div',{'class':'job-item-company'}).text
+        company = i.find('div',{'class':'job-item-company'}).text
         title = i.find('h3',{'class':'job-item-title'}).text
         location = i.find('ul',{'class':'job-item-details'}).find_all('li')[0].text.replace('\n','').replace('  ','')
         postThis = {'text':'<https://example.com|' + company + ' -- ' + title + ' -- ' + location + '>'} 
